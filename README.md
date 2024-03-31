@@ -154,8 +154,8 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
-wessam Abdelnabi - [Github](https://github.com/Wessam18) / [Twitter]()  
-Islam Ahmed - [Github](https://github.com/IslamAbdelHalim) / [Twitter]()
+wessam Abdelnabi - [Github](https://github.com/Wessam18) / [Twitter](https://twitter.com/Wessam37313525)  
+Islam Ahmed - [Github](https://github.com/IslamAbdelHalim) / [Twitter](https://twitter.com/eslamah93152217)
 
 ## License
 Public Domain. No copy write protection. 
