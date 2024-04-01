@@ -16,6 +16,9 @@ def downtear(self):
     '''Status of your API'''
     storage.close()
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return jsonify({"error": "Not found"})
 
 from api.v1.views import *
 
