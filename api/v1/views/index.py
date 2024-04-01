@@ -30,4 +30,4 @@ def get_count():
         "users": storage.count(User)
     }
 
-    return storage.count(stats)
+    return jsonify(stats)
