@@ -61,7 +61,7 @@ def put_state(state_id):
         abort(404)
     data = request.get_json()
     if data is None:
-        abort(400, message="Not a JSON")
+        abort(404)
 
     for k, v in data.items():
         if k not in ['id', 'created_at', 'updated_at']:
