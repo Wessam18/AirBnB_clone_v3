@@ -6,6 +6,7 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 from datetime import datetime
 import inspect
 import models
+from models import storage
 from models.engine import db_storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -86,3 +87,60 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_save(self):
+        """Test that save properly saves objects to file.json"""
+
+    def test_get_db(self):
+        """ Tests method for obtaining an instance db storage"""
+        dic = {"name": "Cundinamarca"}
+        instance = State(**dic)
+        storage.new(instance)
+        storage.save()
+        get_instance = storage.get(State, instance.id)
+        self.assertEqual(get_instance, instance)
+
+    def test_count(self):
+        """ Tests count method db storage """
+        dic = {"name": "Vecindad"}
+        state = State(**dic)
+        storage.new(state)
+        dic = {"name": "Mexico", "state_id": state.id}
+        city = City(**dic)
+        storage.new(city)
+        storage.save()
+        c = storage.count()
+        self.assertEqual(len(storage.all()), c)
+
+
+class TestStorageMethods(unittest.TestCase):
+    """test"""
+
+    def test_count_all(self):
+        """Test counting all objects"""
+        expected_count = 992
+        actual_count = self.storage.count()
+        self.assertEqual(actual_count, expected_count)
+
+    def test_get_user(self):
+        """test get user"""
+        user = self.storage.get(User, self.user_id)
+        self.assertIsInstance(user, User)
+        self.assertEqual(user.id, self.user_id)
+
+    def test_count_users(self):
+        """count users"""
+        expected_user_count = 15
+        actual_user_count = self.storage.count(User)
+        self.assertEqual(actual_user_count, expected_user_count)
+
+    def test_get_non_existent_object(self):
+        """non existent"""
+        obj = self.storage.get(State, "non-existent-id")
+        self.assertIsNone(obj)
+
+    def test_count_all_objects(self):
+        expected_count = 50
+        actual_count = self.storage.count()
+        self.assertEqual(actual_count, expected_count)
