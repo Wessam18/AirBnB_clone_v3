@@ -18,7 +18,8 @@ def get_states():
     return jsonify(state_list)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>',
+                 methods=['GET'], strict_slashes=False)
 def get_state(state_id):
     """Retrieves a State object"""
     state = storage.get(State, state_id)
@@ -61,7 +62,7 @@ def put_state(state_id):
         abort(404)
     data = request.get_json()
     if data is None:
-        abort(404)
+        abort(404, message="Not a JSON")
 
     for k, v in data.items():
         if k not in ['id', 'created_at', 'updated_at']:
