@@ -2,7 +2,7 @@
 """New view for State"""
 
 
-from flask import jsonify, request
+from flask import jsonify, request, abort
 from models import storage
 from models.state import State
 from api.v1.views import app_views
@@ -23,7 +23,7 @@ def get_state(state_id):
     """Retrieves a State object"""
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     return jsonify(state.to_dict())
 
 
@@ -33,7 +33,7 @@ def delete_state(state_id):
     """Delete a State object"""
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not fount"}), 404
+        abort(404)
     else:
         storage.delete(state)
         storage.save()
@@ -45,9 +45,9 @@ def post_state():
     """Post a state"""
     state = request.get_json()
     if state is None:
-        return jsonify({"error": "Not a JSON"}), 400
+        abort(400, message="Not a JSON")
     if 'name' not in state:
-        return jsonify({"error": "Missing name"}), 400
+        abort(400, message="Missing name")
     new_state = State(**state)
     new_state.save()
     return jsonify(new_state.to_dict()), 201
@@ -58,10 +58,10 @@ def put_state(state_id):
     """put a state"""
     state = storage.get(State, state_id)
     if state is None:
-        return jsonify({"error": "Not found"}), 404
+        abort(404)
     data = request.get_json()
     if data is None:
-        return jsonify({"error": "Not a JSON"}), 400
+        abort(400, message="Not a JSON")
 
     for k, v in data.items():
         if k not in ['id', 'created_at', 'updated_at']:
