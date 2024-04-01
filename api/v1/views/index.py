@@ -15,7 +15,7 @@ from models.amenity import Amenity
 @app_views.route('/status')
 def get_status():
     """Route to return the status of the API"""
-    return jsonify({"status": "OK"})
+    return {"status": "OK"}
 
 
 @app_views.route('/stats')
@@ -30,4 +30,4 @@ def get_count():
         "users": storage.count(User)
     }
 
-    return jsonify(stats)
+    return stats
