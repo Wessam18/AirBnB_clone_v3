@@ -79,7 +79,7 @@ class DBStorage:
         """ A method to retrieve one object"""
         if cls is not None and id is not None:
             key = cls.__name__ + '.' + id
-            return self.__objects.get(key, None)
+            return self.__session.query(cls).filter_by(id=id).first()
         return None
 
     def count(self, cls=None):
