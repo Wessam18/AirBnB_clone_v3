@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""New view for State"""
+
+
 from flask import jsonify, request
 from models import storage
 from models.state import State
