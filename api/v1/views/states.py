@@ -59,12 +59,14 @@ def post_state():
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def put_state(state_id):
     """put a state"""
+    if request.content_type != 'application/json':
+        abort(400, description="Not a JSON")
     state = storage.get(State, state_id)
     if state is None:
-        abort(404)
+        abort(404, description="Not a JSON")
     data = request.get_json()
     if data is None:
-        abort(404, message="Not a JSON")
+        abort(404, description="Not a JSON")
 
     for k, v in data.items():
         if k not in ['id', 'created_at', 'updated_at']:
