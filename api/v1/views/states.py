@@ -45,7 +45,7 @@ def delete_state(state_id):
 def post_state():
     """Post a state"""
     if request.content_type != 'application/json':
-        abort(400)
+        abort(400, description="Not a JSON")
     state = request.get_json()
     if state is None:
         abort(400, description="Not a JSON")
