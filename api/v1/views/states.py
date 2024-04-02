@@ -63,7 +63,7 @@ def put_state(state_id):
         abort(400, description="Not a JSON")
     state = storage.get(State, state_id)
     if state is None:
-        abort(404, description="Not a JSON")
+        abort(404)
     data = request.get_json()
     if data is None:
         abort(404, description="Not a JSON")

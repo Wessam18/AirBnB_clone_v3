@@ -43,6 +43,8 @@ def delete_city(city_id):
                  methods=['POST'], strict_slashes=False)
 def create_city(state_id):
     """Creates a new city in a state"""
+    if request.content_type != 'application/json':
+        abort(400, description="Not a JSON")
     state = storage.get(State, state_id)
     if not state:
         abort(404)
@@ -60,6 +62,8 @@ def create_city(state_id):
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """Updates a city by its ID"""
+    if request.content_type != 'application/json':
+        abort(400, description="Not a JSON")
     city = storage.get(City, city_id)
     if not city:
         abort(404)
